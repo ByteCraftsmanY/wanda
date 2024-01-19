@@ -6,9 +6,6 @@ from ..models.cctv import CCTV
 class CCTVService:
     def create(self, data):
         return CCTV.create(
-            id=uuid4(),
-            created_at=datetime.now(),
-            updated_at=datetime.now(),
             **data,
         )
 
@@ -16,7 +13,7 @@ class CCTVService:
         return CCTV.all()
 
     def get_by_id(self, _id):
-        cctv = CCTV.get(id=_id)
+        cctv = CCTV.get(uuid=_id)
         if not cctv:
             return
         return cctv
@@ -26,7 +23,7 @@ class CCTVService:
         if not cctv:
             return
         data['updated_at'] = datetime.now()
-        return CCTV(**data).save()
+        return CCTV(**data).update()
 
     def delete_by_id(self, _id):
-        return CCTV(id=_id).delete()
+        return CCTV(uuid=_id).delete()

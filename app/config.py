@@ -32,7 +32,8 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    pass
+    CASSANDRA_KEYSPACE = 'test'
+    CASSANDRA_HOSTS = ['localhost']
 
 
 class Production(Config):

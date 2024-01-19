@@ -5,27 +5,29 @@ api = Namespace('cctv')
 
 class CCTVDto:
     cctv = api.model('cctv', {
-        'id': fields.String(description='cctv id'),
-        'name': fields.String(required=True, description='cctv name'),
+        'uuid': fields.String(description='cctv id'),
+        'username': fields.String(required=True, description='cctv name'),
         'is_active': fields.Boolean(),
-        'rtsp_url': fields.String(required=True, description='cctv rtsp url [streaming url]'),
+        'url': fields.String(required=True, description='cctv rtsp url [streaming url]'),
         'created_at': fields.DateTime(),
         'updated_at': fields.DateTime(),
+        'deleted_at': fields.DateTime(),
     })
 
 
 class CreateCCTVDto(CCTVDto):
     cctv = api.model('cctv', {
-        'name': fields.String(required=True, description='cctv name'),
+        'username': fields.String(required=True, description='cctv username'),
+        'password': fields.String(required=True, description='cctv password'),
         'is_active': fields.Boolean(),
-        'rtsp_url': fields.String(required=True, description='cctv rtsp url [streaming url]'),
+        'url': fields.String(required=True, description='cctv url [streaming/rtsp url]'),
     })
 
 
 class UpdateCCTVDto(CCTVDto):
     cctv = api.model('cctv', {
         'id': fields.String(required=True, description='cctv id'),
-        'name': fields.String(required=True, description='cctv name'),
+        'username': fields.String(description='cctv name'),
         'is_active': fields.Boolean(),
-        'rtsp_url': fields.String(required=True, description='cctv rtsp url [streaming url]'),
+        'url': fields.String(description='cctv url [streaming/rtsp url]'),
     })

@@ -1,17 +1,16 @@
-from uuid import uuid4
-from datetime import datetime
-
 from .. import db
+from .base import BaseModel
 
 
-class CCTV(db.Model):
+class CCTV(BaseModel):
     """
         CCTV Model for storing cctv camera related details
     """
+    username = db.columns.Text()
+    password = db.columns.Text()
+    url = db.columns.Text()
+    organization_id = db.columns.UUID()
+    extra = db.columns.Map(db.columns.Text(), db.columns.Text())
 
-    id = db.columns.UUID(partition_key=True, primary_key=True, default=uuid4)
-    name = db.columns.Text()
-    rtsp_url = db.columns.Text()
-    is_active = db.columns.Boolean(default=True)
-    created_at = db.columns.DateTime(default=datetime.now())
-    updated_at = db.columns.DateTime(default=datetime.now())
+    def __repr__(self):
+        return "<CCTV '{}'>".format(self.uuid)

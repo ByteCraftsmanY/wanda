@@ -1,6 +1,5 @@
 from flask_restx import Resource
 
-import app.main
 from ..dtos.health_dto import HealthDto
 from http import HTTPStatus
 

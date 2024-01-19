@@ -1,6 +1,7 @@
 from uuid import uuid4
 from datetime import datetime
 from .. import db, bcrypt
+from .base import BaseModel
 
 
 class RoleAndCCTVListUDT(db.UserType):
@@ -8,22 +9,25 @@ class RoleAndCCTVListUDT(db.UserType):
     cctv_list = db.columns.Set(db.columns.Text())
 
 
-class User(db.Model):
+class User(BaseModel):
     """
         User Model for storing user related details
     """
 
-    id = db.columns.UUID(partition_key=True, primary_key=True, default=uuid4)
     name = db.columns.Text()
+    phone = db.columns.Text()
     email = db.columns.Text()
     username = db.columns.Text()
-    parent_id_role_cctv_data = db.columns.Map(
+    password = db.columns.Text()
+    org_ids = db.columns.Set(db.columns.UUID())
+    extra = db.columns.Map(
         key_type=db.columns.Text(),
-        value_type=db.columns.UserDefinedType(RoleAndCCTVListUDT)
+        value_type=db.columns.Text()
     )
-    password_hash = db.columns.Text()
-    created_at = db.columns.DateTime(default=datetime.now())
-    updated_at = db.columns.DateTime(default=datetime.now())
+    # parent_id_role_cctv_data = db.columns.Map(
+    #     key_type=db.columns.Text(),
+    #     value_type=db.columns.UserDefinedType(RoleAndCCTVListUDT)
+    # )
 
     @property
     def password(self):
